@@ -40,3 +40,11 @@ class DataLoader:
             print("Error: file" + self.filename + "not found. Please check the filename")
         except Exception as e:
             print("An unexpected error occured" + str(e)) 
+
+class DataAnalyser:
+    def __init__(self, students):
+        self.students = students
+        self.result = {}
+    def analyse(self):
+        gpas = []
+        high_performers = 0
