@@ -78,12 +78,13 @@ class DataAnalyser:
         print("-" * 30)
         print("GPA Analysis")
         print("-" * 30)
-        print("Total Students: " + self.result['total_students'])
-        print("Average GPA: " + self.result['avg_gpa'])
-        print("Highest GPA: " + self.result['max_gpa'])
-        print("Lowest GPA: " + self.result['min_gpa'])
-        print("Students GPA > 3.5: " + self.result['high_performers'])
+        print(f"{'Total students':<20} : {self.result['total_students']}")
+        print(f"{'Average GPA':<20} : {self.result['average_gpa']}")
+        print(f"{'Highest GPA':<20} : {self.result['max_gpa']}")
+        print(f"{'Lowest GPA':<20} : {self.result['min_gpa']}")
+        print(f"{'Students GPA>3.5':<20} : {self.result['high_performers']}")
         print("-" * 30)
+
 
 class ResultSaver:
     def __init__(self, result, output_path):
@@ -96,3 +97,35 @@ class ResultSaver:
             print("Result saved to" + self.output_path)
         except Exception as e:
             print("Error saving file" + str(e))
+
+def lambda_map_filter(students):
+    print("-" * 30)
+    print("Lambda / Map / Filter")
+    print("-" * 30)
+
+    high_gpa = list(filter(lambda s : float(s['GPA']) > 3.8, students))
+    print(f"{'GPA > 3.8': < 30} : {len(high_gpa)}")
+
+    gpa_values = list(map(lambda s: float(s['GPA']), students))
+    print(f"{'GPA values(first 5)' : < 30} : {gpa_values[:5]}")
+
+    hard_workers = list(filter(lambda s : float(s['study_hours_per_day']) > 4, students))
+    print(f"{'study_hours_per_day > 4': < 30} :{len(hard_workers)}")
+
+    print("-" * 30)
+
+def test_exception_handling():
+    bad_loader = DataLoader("wrong_file.csv")
+    bad_loader.load()
+
+def print_final_summary(result):
+    print("=" * 30)
+    print("ANALYSIS RESULT")
+    print("=" * 30)
+    print(f"{'Analysis':<20} : {result['analysis']}")
+    print(f"{'Total students':<20} : {result['total_students']}")
+    print(f"{'Average GPA':<20} : {result['average_gpa']}")
+    print(f"{'Highest GPA':<20} : {result['max_gpa']}")
+    print(f"{'Lowest GPA':<20} : {result['min_gpa']}")
+    print(f"{'High performers':<20} : {result['high_performers']}")
+    print("=" * 30)
