@@ -48,3 +48,29 @@ class DataAnalyser:
     def analyse(self):
         gpas = []
         high_performers = 0
+
+        for s in self.students:
+            try:
+                gpa = float(s(['GPA']))
+                gpas.append(gpa)
+                
+                if gpa > 3.5:
+                    high_performers += 1
+            except ValueError:
+                print("Warning: could not convert value for student" + s['student_id'] + "- skipping row")
+                continue
+        
+        avg_gpa = round(sum(gpas) / len(gpas), 2)
+        max_gpa = max(gpas)
+        min_gpa = min(gpas)
+
+        self.result = {
+            "Analysis" : "GPA Statistics",
+            "total_students" : len(self.students),
+            "average gpa" : avg_gpa,
+            "max_gpa": max_gpa,
+            "min_gpa": min_gpa,                       
+            "high_performers": high_performers
+        }
+
+        return self.result
