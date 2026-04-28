@@ -73,3 +73,19 @@ class DataAnalyser:
             "high_performers": high_performers
         }
         return self.result
+    
+    def print_results(self):
+        print("-" * 30)
+        print("GPA Analysis")
+        print("-" * 30)
+        print("Total Students: " + self.result['total_students'])
+        print("Average GPA: " + self.result['avg_gpa'])
+        print("Highest GPA: " + self.result['max_gpa'])
+        print("Lowest GPA: " + self.result['min_gpa'])
+        print("Students GPA > 3.5: " + self.result['high_performers'])
+        print("-" * 30)
+
+class ResultSaver:
+    def __init__(self, result, output_path):
+        self.result = result
+        self.result = output_path
