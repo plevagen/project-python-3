@@ -72,5 +72,4 @@ class DataAnalyser:
             "min_gpa": min_gpa,                       
             "high_performers": high_performers
         }
-
         return self.result
