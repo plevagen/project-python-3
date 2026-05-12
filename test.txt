@@ -41,42 +41,11 @@ class DataLoader:
         except Exception as e:
             print("An unexpected error occured" + str(e)) 
 
-    def preview(self, n = 5):
-        print("First 5 rows: ")
-        print("-" * 30)
-
-        for i in range(n):
-            s = self.students[i]
-            print(f"{s['student_id']} | {s['age']} | {s['gender']} | {s['country']} | GPA: {s['GPA']}")
-        
-        print('-' * 30)
 
 class DataAnalyser:
     def __init__(self, students):
         self.students = students
         self.result = {}
-    
-    def analyse(self):
-        print("Not implemented - use a child class")
-    
-    def print_results(self):
-        print("-" * 30)
-        print(self.result.get("analysis", "Results"))
-        print("-" * 30)
-
-        for key, values in self.result.items():
-            if key != "analysis":
-                print(f"{key:<20} : {values}")
-        print("-" * 30)
-    
-    def __str__(self):
-        return f"DataAnalyser: base class, {len(self.students)} students"
-
-
-class GpaAnalyser(DataAnalyser):
-    def __init__(self, students):
-        super().__init__(students)
-    
     def analyse(self):
         gpas = []
         high_performers = 0
@@ -103,9 +72,18 @@ class GpaAnalyser(DataAnalyser):
             "min_gpa": min_gpa,                       
             "high_performers": high_performers
         }
+        return self.result
     
-    def __str__(self):
-        return f"GpaAnalyser: GPA Statistics, {len(self.students)} students"
+    def print_results(self):
+        print("-" * 30)
+        print("GPA Analysis")
+        print("-" * 30)
+        print(f"{'Total students':<20} : {self.result['total_students']}")
+        print(f"{'Average GPA':<20} : {self.result['average_gpa']}")
+        print(f"{'Highest GPA':<20} : {self.result['max_gpa']}")
+        print(f"{'Lowest GPA':<20} : {self.result['min_gpa']}")
+        print(f"{'Students GPA>3.5':<20} : {self.result['high_performers']}")
+        print("-" * 30)
 
 
 class ResultSaver:
@@ -165,14 +143,8 @@ if __name__ == "__main__":
     dl.preview()
 
     analyser = DataAnalyser(dl.students)
-    print(analyser)
-    analyser.analyse()
-
-    analyser = GpaAnalyser(dl.students)
-    print(analyser)
     analyser.analyse()
     analyser.print_results()
-
     print_final_summary(analyser.result)
 
     saver = ResultSaver(analyser.result, 'output/result.json')
