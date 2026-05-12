@@ -1,5 +1,5 @@
 {
-    "analysis": "GPA Statistics",
+    "analysis": "GPA analysis",
     "total_students": 10000,
     "average_gpa": 3.62,
     "max_gpa": 4.0,
