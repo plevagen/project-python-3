@@ -1,12 +1,8 @@
 import os
 import csv
 import json
-from analytics.file_manager import FileManager
-from analytics.data_loader import DataLoader
-from analytics.analyser import GpaAnalyser
-from analytics.analyser import SleepAnalyser
-from analytics.report import Report 
-from analytics.result_saver import ResultSaver
+from analytics import FileManager, DataLoader, ResultSaver, Report
+from analytics.analyser import GpaAnalyser, SleepAnalyser
 
 def lambda_map_filter(students):
     print("=" * 30)
